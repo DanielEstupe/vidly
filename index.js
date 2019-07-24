@@ -1,21 +1,28 @@
 const express = require('express');
 const Joi = require('joi');
+const logger = require('./middlewares/logger');
+const morgan = require('morgan');
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+if(app.get('env') === 'development') {
+    app.use(morgan('tiny'));
+    console.log('Morgan enabled...');
+}
+
 const genres = [
     { id: 1, name: 'Terror' }
 ];
 
-app.get('/api/genres', (req, res) => {
+app.get('/api/genres', logger, (req, res) => {
     res.send(genres);
 });
 
 app.get('/api/genres/:id', (req, res) => {
     const genre = genres.find(g => g.id === parseInt(req.params.id));
-    if(!genre) return res.status(404).send('El genero no se ha encontrado');
+    if(!genre) return res.status(404).send('El género no se ha encontrado');
     res.send(genre);
 });
 
