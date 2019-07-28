@@ -1,3 +1,4 @@
+const config = require('config');
 const express = require('express');
 const Joi = require('joi');
 const logger = require('./middlewares/logger');
@@ -6,6 +7,11 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Configuration
+console.log('Application name: ' + config.get('name'));
+console.log('Mail server: ' + config.get('mail.host'));
+console.log('Mail password: ' + config.get('mail.password'));
 
 if(app.get('env') === 'development') {
     app.use(morgan('tiny'));
