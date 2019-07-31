@@ -1,3 +1,5 @@
+const startupDebugger = require('debug')('vidly:startup');
+const dbDebugger = require('debug')('vidly:db');
 const config = require('config');
 const express = require('express');
 const Joi = require('joi');
@@ -15,9 +17,11 @@ console.log('Mail password: ' + config.get('mail.password'));
 
 if(app.get('env') === 'development') {
     app.use(morgan('tiny'));
-    console.log('Morgan enabled...');
+    startupDebugger('Morgan enabled...');
 }
 
+// Db work...
+dbDebugger('Connected to the database...');
 const genres = [
     { id: 1, name: 'Terror' }
 ];
