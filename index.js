@@ -7,8 +7,12 @@ const logger = require('./middlewares/logger');
 const morgan = require('morgan');
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', './views');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 // Configuration
 console.log('Application name: ' + config.get('name'));
@@ -25,6 +29,13 @@ dbDebugger('Connected to the database...');
 const genres = [
     { id: 1, name: 'Terror' }
 ];
+
+app.get('/', (req, res) => {
+    res.render('index', {
+        title: "Vidly API",
+        message: "This a simple API written in NodeJS"
+    });
+});
 
 app.get('/api/genres', logger, (req, res) => {
     res.send(genres);
