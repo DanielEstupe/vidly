@@ -30,6 +30,7 @@ const genres = [
     { id: 1, name: 'Terror' }
 ];
 
+// Principal view
 app.get('/', (req, res) => {
     res.render('index', {
         title: "Vidly API",
@@ -37,16 +38,19 @@ app.get('/', (req, res) => {
     });
 });
 
+// GET /api/genres
 app.get('/api/genres', logger, (req, res) => {
     res.send(genres);
 });
 
+// GET /api/genres/1
 app.get('/api/genres/:id', (req, res) => {
     const genre = genres.find(g => g.id === parseInt(req.params.id));
     if(!genre) return res.status(404).send('El género no se ha encontrado');
     res.send(genre);
 });
 
+// POST /api/genres
 app.post('/api/genres', (req, res) => {
     const { error } = validateGenre(req.body);
     if(error) return res.status(400).send(error.details[0].message);
@@ -59,6 +63,7 @@ app.post('/api/genres', (req, res) => {
     res.send(genre);
 });
 
+// PUT /api/genres/1
 app.put('/api/genres/:id', (req, res) => {
     const genre = genres.find(g => g.id === parseInt(req.params.id));
     if(!genre) return res.status(404).send("El género con el ID proporcionado no fue encontrado.");
@@ -70,6 +75,7 @@ app.put('/api/genres/:id', (req, res) => {
     res.send(genre);
 });
 
+// DELETE /api/genres/1
 app.delete('/api/genres/:id', (req, res) => {
     const genre = genres.find(g => g.id === parseInt(req.params.id));
     if(!genre) return res.status(404).send("El género con el ID proporcionado no fue encontrado.");
@@ -80,6 +86,7 @@ app.delete('/api/genres/:id', (req, res) => {
     res.send(genre);
 });
 
+// Function evaluate de schema sent from the client
 function validateGenre(genre) {
     const schema = {
         name: Joi.string().min(3).required()
@@ -87,5 +94,6 @@ function validateGenre(genre) {
     return Joi.validate(genre, schema);
 }
 
+// Port configuration
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Escuchando en el puerto ${port}`));
