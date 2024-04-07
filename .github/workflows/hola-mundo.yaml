@@ -1,11 +1,14 @@
-name: hola-mundo
+name: script-runner
 on: [push]
 jobs:
-  hola-mundo:
+  script-runner-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Public IP
-        id: ip
-        uses: haythem/public-ip@v1.3
-      - name: Hola mundo
-        run: echo ¡Hola Mundo desde ${{steps.ip.outputs.ipv4}}!
+    - name: Checkout 
+      uses: actions/checkout@v4
+    - name: Configure NodeJS
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'latest'
+    - name: Run script
+      run: node hello-world.js
