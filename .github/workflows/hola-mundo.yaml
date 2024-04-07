@@ -1,4 +1,5 @@
 name: script-runner
+run-name: Run the script
 on: [push]
 jobs:
   script-runner-job:
@@ -10,5 +11,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 'latest'
+    - name: Define variable
+      run: echo "USERNAME=${{github.actor}} REPOSITORY=${{github.repository}}" >> $GITHUB_ENV
     - name: Run script
       run: node hello-world.js
