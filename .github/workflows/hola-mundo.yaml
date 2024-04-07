@@ -12,6 +12,6 @@ jobs:
       with:
         node-version: 'latest'
     - name: Define variable
-      run: echo "USERNAME=${{github.actor}} REPOSITORY=${{github.repository}}" >> $GITHUB_ENV
+      run: echo "USERNAME=${{github.actor}};REPOSITORY=${{github.repository}}" >> $GITHUB_ENV
     - name: Run script
       run: node hello-world.js
