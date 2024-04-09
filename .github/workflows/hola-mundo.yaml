@@ -1,16 +1,14 @@
 name: Runner
 run-name: Events
 on:
-  schedule:
-    - cron: '2/5 * * * 1'
-    - cron: '2/8 * * * 1'
+  pull_request:
+    types:
+    - closed
 jobs:
-  practice-with-events:
+  if_merged:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Not on minute by 3
-        if: github.event.schedule != '2/5 * * * 1'
-        run: echo "This step will be skipped on minute by 5"
-      - name: Every time
-        run: echo "This step will always run"
+      - run: |
+          echo The PR was merged
       
