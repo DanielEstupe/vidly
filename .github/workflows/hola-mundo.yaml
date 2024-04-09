@@ -2,8 +2,8 @@ name: Runner
 run-name: Events
 on:
   schedule:
-    - cron: '15,18 22 8 4 1'
-    - cron: '16,18 22 8 4 1'
+    - cron: '15,18,21,24 * * * *'
+    - cron: '16,18,24 * * * *'
 jobs:
   practice-with-events:
     runs-on: ubuntu-latest
