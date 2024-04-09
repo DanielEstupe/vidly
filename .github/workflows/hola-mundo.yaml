@@ -20,7 +20,7 @@ on:
 jobs:
   practice-with-events:
     runs-on: ubuntu-latest
-    tasks:
+    steps:
       - run: |
           echo "Log level: $LEVEL"
           echo "Tags: $TAGS"
