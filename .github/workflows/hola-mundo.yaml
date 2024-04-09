@@ -2,15 +2,15 @@ name: Runner
 run-name: Events
 on:
   schedule:
-    - cron: '15,18,21,24 * * * *'
-    - cron: '16,18,24 * * * *'
+    - cron: '2/5 * * * 1'
+    - cron: '2/8 * * * 1'
 jobs:
   practice-with-events:
     runs-on: ubuntu-latest
     steps:
       - name: Not on minute by 3
-        if: github.event.schedule != '15,18 22 8 4 1'
-        run: echo "This step will be skipped on minute by 3"
+        if: github.event.schedule != '2/5 * * * 1'
+        run: echo "This step will be skipped on minute by 5"
       - name: Every time
         run: echo "This step will always run"
       
