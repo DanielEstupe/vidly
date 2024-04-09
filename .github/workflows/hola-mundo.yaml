@@ -1,31 +1,16 @@
 name: Runner
 run-name: Events
 on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options: [info, warning, debug]
-      tags:
-        description: 'Test scenario tags'
-        required: false
-        type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
+  schedule:
+    - cron: '15,18 22 8 4 1'
+    - cron: '16,18 22 8 4 1'
 jobs:
   practice-with-events:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "Log level: $LEVEL"
-          echo "Tags: $TAGS"
-          echo "Environment: $ENVIRONMENT"
-        env:
-          LEVEL: ${{ inputs.logLevel }}
-          TAGS: ${{ inputs.tags }}
-          ENVIRONMENT: ${{ inputs.environment }}
+      - name: Not on minute by 3
+        if: github.event.schedule != '15,18 22 8 4 1'
+        run: echo "This step will be skipped on minute by 3"
+      - name: Every time
+        run: echo "This step will always run"
+      
