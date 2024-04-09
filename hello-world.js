@@ -1,3 +1,3 @@
 const { USERNAME, REPOSITORY } = process.env
 console.log(`Hello, ${USERNAME}, from Github!`)
-console.log(`Repository: ${REPOSITORY}.`)
+console.log(`From repo: ${REPOSITORY}.`)
