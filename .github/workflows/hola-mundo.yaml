@@ -18,13 +18,13 @@ env:
   ADULT_AGE: 18
 jobs:
   adult:
-    if: inputs.age >= $ADULT_AGE
+    if: inputs.age >= env.ADULT_AGE
     runs-on: ubuntu-latest
     steps:
       - name: 'Greet adult'
         run: echo "Hello, $NAME. You are an adult."
   young:
-    if: inputs.age < $ADULT_AGE
+    if: inputs.age < env.ADULT_AGE
     runs-on: ubuntu-latest
     steps:
       - name: 'Greet younger'
