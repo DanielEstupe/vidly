@@ -12,13 +12,13 @@ on:
         description: 'Age'
         required: true
         type: number
+env:
+  NAME: ${{ inputs.name }}
+  AGE: ${{ inputs.age }}
+  ADULT_AGE: 18
 jobs:
   validate-age:
     runs-on: ubuntu-latest
-    env:
-      NAME: ${{ inputs.name }}
-      AGE: ${{ inputs.age }}
-      ADULT_AGE: 18
     steps:
       - if: ${{ env.AGE >= env.ADULT_AGE }}
         name: 'Greet adult'
