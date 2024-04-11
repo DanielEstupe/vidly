@@ -13,23 +13,15 @@ on:
         required: true
         type: number
 jobs:
-  if-adult:
+  validate-age:
+    runs-on: ubuntu-latest
     env:
       NAME: ${{ inputs.name }}
       AGE: ${{ inputs.age }}
-      ADULT_AGE: 18
-    if: ${{ env.AGE >= env.ADULT_AGE }}
-    runs-on: ubuntu-latest
     steps:
-      - name: 'Greet'
+      - if: ${{ env.AGE >= 18 }}
+        name: 'Greet adult'
         run: echo "Hello, $NAME. You are an adult."
-  if-not-adult:
-    env:
-      NAME: ${{ inputs.name }}
-      AGE: ${{ inputs.age }}
-      ADULT_AGE: 18
-    if: ${{ env.AGE < env.ADULT_AGE }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Greet'
+      - if: ${{ env.AGE < 18 }}
+        name: 'Greet younger'
         run: echo "Hi, $NAME. You are not an adult yet."
