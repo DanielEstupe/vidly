@@ -12,18 +12,22 @@ on:
         description: 'Age'
         required: true
         type: number
-env:
-  NAME: ${{ inputs.name }}
-  AGE: ${{ inputs.age }}
-  ADULT_AGE: 18
 jobs:
   adult:
+    env:
+      NAME: ${{ inputs.name }}
+      AGE: ${{ inputs.age }}
+      ADULT_AGE: 18
     if: inputs.age >= env.ADULT_AGE
     runs-on: ubuntu-latest
     steps:
       - name: 'Greet adult'
         run: echo "Hello, $NAME. You are an adult."
   young:
+    env:
+      NAME: ${{ inputs.name }}
+      AGE: ${{ inputs.age }}
+      ADULT_AGE: 18
     if: inputs.age < env.ADULT_AGE
     runs-on: ubuntu-latest
     steps:
