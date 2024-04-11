@@ -1,14 +1,31 @@
-name: Runner
-run-name: Events
-on:
-  pull_request:
-    types:
-    - closed
+name: Expressions
+run-name: Using expressions
+on: 
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Name'
+        required: true
+        type: string
+        default: 'Daniel'
+      age:
+        description: 'Age'
+        required: true
+        type: number
 jobs:
-  if_merged:
-    if: github.event.pull_request.merged == true
+  env:
+    NAME: ${{ inputs.name }}
+    AGE: ${{ inputs.age }}
+    ADULT_AGE: 18
+  if-adult:
+    if: ${{ $AGE >= $ADULT_AGE }}
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo The PR was merged
-      
+      - name: 'Greet'
+        run: echo "Hello, $NAME. You are an adult."
+  if-not-adult:
+    if: ${{ $AGE < $ADULT_AGE }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Greet'
+        run: echo "Hi, $NAME. You are not an adult yet."
