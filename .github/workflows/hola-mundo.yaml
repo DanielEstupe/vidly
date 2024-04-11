@@ -18,8 +18,9 @@ jobs:
     env:
       NAME: ${{ inputs.name }}
       AGE: ${{ inputs.age }}
+      ADULT_AGE: 18
     steps:
-      - if: ${{ env.AGE >= 18 }}
+      - if: ${{ env.AGE >= env.ADULT_AGE }}
         name: 'Greet adult'
         run: echo "Hello, $NAME. You are an adult."
       - if: ${{ env.AGE < 18 }}
