@@ -18,7 +18,7 @@ jobs:
       NAME: ${{ inputs.name }}
       AGE: ${{ inputs.age }}
       ADULT_AGE: 18
-    if: $AGE >= $ADULT_AGE
+    if: ${{ env.AGE >= env.ADULT_AGE }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Greet'
@@ -28,7 +28,7 @@ jobs:
       NAME: ${{ inputs.name }}
       AGE: ${{ inputs.age }}
       ADULT_AGE: 18
-    if: $AGE < $ADULT_AGE
+    if: ${{ env.AGE < env.ADULT_AGE }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Greet'
