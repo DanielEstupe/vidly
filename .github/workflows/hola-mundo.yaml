@@ -1,35 +1,9 @@
-name: Expressions
-run-name: Using expressions
-on: 
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Name'
-        required: true
-        type: string
-        default: 'Daniel'
-      age:
-        description: 'Age'
-        required: true
-        type: number
+name: Contexto
+run-name: Usando contextos
+on: push
 jobs:
-  adult:
-    env:
-      NAME: ${{ inputs.name }}
-      AGE: ${{ inputs.age }}
-      ADULT_AGE: 18
-    if: inputs.age >= env.ADULT_AGE
+  check-main:
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
-      - name: 'Greet adult'
-        run: echo "Hello, $NAME. You are an adult."
-  young:
-    env:
-      NAME: ${{ inputs.name }}
-      AGE: ${{ inputs.age }}
-      ADULT_AGE: 18
-    if: inputs.age < env.ADULT_AGE
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Greet younger'
-        run: echo "Hi, $NAME. You are not an adult yet."
+      - run: echo "Desplegando en la rama $GITHUB_REF"
